@@ -52,92 +52,118 @@ models:
       - name: customer_state
       - name: customer_zip_code
 
-  - name: stg_localbike__order_id
-    description: "."
+  - name: stg_localbike__order_items
+    description: "This model contains information about the orders items"
     columns:
-      - name: _id
+      - name: order_item_id
         description: "Primary key, unique identifier for each ."
         tests:
           - unique
           - not_null
           - relationships:
-              name: 
-              to: 
-              field: 
-      - name: 
-        description: 
+              name: order_id_foreign_key_in_stg_localbike__orders
+              to: ref('stg_localbike__orders')
+              field: order_id
+          - relationships:
+              name: product_id_foreign_key_in_stg_localbike__products
+              to: ref('stg_localbike__products')
+              field: product_id
+      - name: item_id
+      - name: quantity
+      - name: list_price
+      - name: discount
 
   - name: stg_localbike__orders
-    description: "."
+    description: "This model contains information about the orders"
     columns:
-      - name: _id
+      - name: order_id
         description: "Primary key, unique identifier for each ."
         tests:
           - unique
           - not_null
           - relationships:
-              name: 
-              to: 
-              field: 
-      - name: 
-        description: 
+              name: order_id_foreign_key_in_stg_localbike__order_items
+              to: ref('stg_localbike__order_items')
+              field: order_id
+      - name: customer_id
+      - name: order_status_label
+      - name: order_date
+      - name: required_date
+      - name: days_to_ship_order
+      - name: store_id
+      - name: staff_id 
 
   - name: stg_localbike__products
-    description: "."
+    description: "This model contains information about the products"
     columns:
-      - name: _id
+      - name: product_id
         description: "Primary key, unique identifier for each ."
         tests:
           - unique
           - not_null
           - relationships:
-              name: 
-              to: 
-              field: 
-      - name: 
-        description: 
+              name: product_id_foreign_key_in_stg_localbike__order_items
+              to: ref('stg_localbike__order_items')
+              field: product_id
+      - name: product_name
+      - name: brand_id
+      - name: category_id
+      - name: model_year
+      - name: list_price 
+        
 
   - name: stg_localbike__staffs
-    description: "."
+    description: "This model contains information about the staff"
     columns:
-      - name: _id
+      - name: staff_id
         description: "Primary key, unique identifier for each ."
         tests:
           - unique
           - not_null
           - relationships:
-              name: 
-              to: 
-              field: 
-      - name: 
-        description: 
+              name: staff_id_foreign_key_in_stg_localbike__orders
+              to: ref('stg_localbike__orders')
+              field: staff_id
+      - name: staff_first_name
+      - name: staff_last_name
+      - name: staff_email
+      - name: staff_phone
+      - name: active
+      - name: store_id
+      - name: manager_id
 
   - name: stg_localbike__stocks
-    description: "."
+    description: "This model contains information about the stock at a given time"
     columns:
-      - name: _id
+      - name: store_product_id
         description: "Primary key, unique identifier for each ."
         tests:
           - unique
           - not_null
           - relationships:
-              name: 
-              to: 
-              field: 
-      - name: 
-        description: 
+              name: store_id_foreign_key_in_stg_localbike__stores 
+              to: ref('stg_localbike__stores')
+              field: store_id
+          - relationships:
+              name: product_id_foreign_key_in_stg_localbike__products 
+              to: ref('stg_localbike__products')
+              field: product_id
+      - name: quantity 
+
 
   - name: stg_localbike__stores
-    description: "."
+    description: "This model contains information about the stores"
     columns:
-      - name: _id
+      - name: store_id
         description: "Primary key, unique identifier for each ."
         tests:
           - unique
           - not_null
-          - relationships:
-              name: 
-              to: 
-              field: 
-      - name: 
-        description: 
+      - name: store_name
+      - name: store_phone
+      - name: store_email
+      - name: store_street
+      - name: store_city
+      - name: store_state
+      - name: store_zip_code
+    

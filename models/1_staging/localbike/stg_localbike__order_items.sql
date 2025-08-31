@@ -4,7 +4,16 @@ SELECT
     -- item_id, remove because not used in other tables no clear use
     product_id,
     quantity,
-    list_price,
-    discount
+    -- Cast list_price en float avec 2 décimales
+    ROUND(CAST(list_price AS FLOAT64), 2) AS list_price,
+    -- Afficher discount en pourcentage sans décimale
+    discount, 
+    ROUND(CAST(list_price * (1 - discount) AS FLOAT64),2) AS net_price, 
+    ROUND(CAST(list_price * quantity AS FLOAT64),2) AS amount_spent_before_discount, 
+    ROUND(CAST(list_price * (1 - discount) * quantity AS FLOAT64),2) AS net_amount_spent, 
+    -- Montant de la remise
+    ROUND(CAST(list_price * discount AS FLOAT64), 2) AS discount_amount
+
+
 FROM
-    {{ source('localbike', 'order_item') }}
+    {{ source('localbike', 'order_items') }}
