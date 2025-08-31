@@ -13,7 +13,6 @@ WITH sales_orders_per_customer AS (
     o.order_date
 )
 
-
   SELECT
     customer_id,
     MIN(order_date) AS first_order_date,
