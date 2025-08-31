@@ -14,7 +14,7 @@ models:
               to: ref('stg_localbike__products')
               field: brand_id
       - name: brand_name
-        description: "Name of the brand of bike."
+
 
   - name: stg_localbike__categories
     description: "This model contains information about bike categories."
@@ -29,7 +29,10 @@ models:
               to: ref('stg_localbike__products')
               field: category_id
       - name: category_name
-        description: "Name of the category of bike."          
+        description: "Name of the category of bike."
+      - name: category_type
+        description: "Name of the type of the category of bike."
+
 
   - name: stg_localbike__customers
     description: "This model contains information about the customers of the localbike company"
@@ -44,7 +47,7 @@ models:
               to: ref('stg_localbike__orders')
               field: customer_id
       - name: customer_first_name
-      - name: last_first_name
+      - name: customer_last_first_name
       - name: customer_phone
       - name: customer_email
       - name: customer_street
@@ -72,6 +75,10 @@ models:
       - name: quantity
       - name: list_price
       - name: discount
+      - name: net_price
+      - name: amount_spent_before_discount
+      - name: net_amount_spend
+      - name: discuont_amount
 
   - name: stg_localbike__orders
     description: "This model contains information about the orders"
@@ -89,6 +96,7 @@ models:
       - name: order_status_label
       - name: order_date
       - name: required_date
+      - name: shipped_date
       - name: days_to_ship_order
       - name: store_id
       - name: staff_id 
@@ -131,6 +139,8 @@ models:
       - name: active
       - name: store_id
       - name: manager_id
+      - name: manager_first_name
+      - name: manager_last_name
 
   - name: stg_localbike__stocks
     description: "This model contains information about the stock at a given time"
@@ -148,7 +158,7 @@ models:
               name: product_id_foreign_key_in_stg_localbike__products 
               to: ref('stg_localbike__products')
               field: product_id
-      - name: quantity 
+      - name: stocks_quantity 
 
 
   - name: stg_localbike__stores
