@@ -7,6 +7,5 @@ SELECT
     street AS customer_street,
     city AS customer_city,
     state AS customer_state,
-    zip_code AS customer_zip_code,
-FROM
-    {{ source('localbike', 'customers') }}
+    LPAD(CAST(zip_code AS STRING), 5, '0') AS customer_zip_code
+FROM {{ source('localbike', 'customers') }}
