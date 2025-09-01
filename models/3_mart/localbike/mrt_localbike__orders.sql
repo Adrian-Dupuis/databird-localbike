@@ -1,7 +1,9 @@
 select     
     order_id, 
+    order_status,
     order_status_label, 
     order_date, 
+    order_year,
     shipped_date, 
     days_to_ship_order, 
     product_id, 
@@ -31,6 +33,16 @@ select
         (SELECT MAX(order_date) FROM {{ ref('int_localbike__orders') }}),
         order_date,
         DAY
-    ) AS days_from_latest_order
+    ) AS days_from_latest_order, 
+    CASE
+        WHEN shipped_date IS NOT NULL 
+        THEN DATE_DIFF(shipped_date, order_date, DAY)
+    END AS shipping_delay, 
+    (
+        SELECT AVG(DATE_DIFF(shipped_date, order_date, DAY))
+        FROM {{ ref('int_localbike__orders') }}
+        WHERE shipped_date IS NOT NULL
+          AND DATE_DIFF(shipped_date, order_date, DAY) > 0
+    ) AS avg_shipping_delay
 
 from  {{ ref('int_localbike__orders') }}
