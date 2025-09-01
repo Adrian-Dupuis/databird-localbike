@@ -11,14 +11,16 @@ models:
           - not_null
           - relationships:
               name: brand_id_foreign_key_in_stg_localbike__products
-              to: ref('stg_localbike__products')
-              field: brand_id
+              arguments:
+                to: ref('stg_localbike__products')
+                field: brand_id
       - name: brand_name
         description: "Brand name of the bikes."
         tests:
           - accepted_values:
               name: accepted_values_brand_name
-              values: ['Electra', 'Haro', 'Heller', 'Pure Cycles', 'Ritchey', 'Strider', 'Sun Bicycles', 'Surly', 'Trek']
+              arguments:
+                values: ['Electra', 'Haro', 'Heller', 'Pure Cycles', 'Ritchey', 'Strider', 'Sun Bicycles', 'Surly', 'Trek']
 
 
   - name: stg_localbike__categories
@@ -31,8 +33,9 @@ models:
           - not_null
           - relationships:
               name: catogory_id_foreign_key_in_stg_localbike__products
-              to: ref('stg_localbike__products')
-              field: category_id
+              arguments:
+                to: ref('stg_localbike__products')
+                field: category_id
       - name: category_name
         description: "Name of the category of bike."
       - name: category_type
@@ -49,8 +52,9 @@ models:
           - not_null
           - relationships:
               name: customer_id_foreign_key_in_stg_localbike__orders
-              to: ref('stg_localbike__orders')
-              field: customer_id
+              arguments:
+                to: ref('stg_localbike__orders')
+                field: customer_id
       - name: customer_first_name
       - name: customer_last_first_name
       - name: customer_phone
@@ -70,20 +74,24 @@ models:
           - not_null
           - relationships:
               name: order_id_foreign_key_in_stg_localbike__orders
-              to: ref('stg_localbike__orders')
-              field: cast(order_id as string)
+              arguments:
+                to: ref('stg_localbike__orders')
+                field: cast(order_id as string)
           - relationships:
               name: product_id_foreign_key_in_stg_localbike__products
-              to: ref('stg_localbike__products')
-              field: product_id
+              arguments:
+                to: ref('stg_localbike__products')
+                field: product_id
       - name: item_id
       - name: quantity
       - name: list_price
       - name: discount
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-            min_value: 0
-            max_value: 1
+              name: test_discount_btw_0_and_1
+              arguments:
+                min_value: 0
+                max_value: 1
       - name: net_price
       - name: gross_sales_amount
       - name: net_sales_amount
@@ -99,11 +107,14 @@ models:
           - not_null
           - relationships:
               name: order_id_foreign_key_in_stg_localbike__order_items
-              to: ref('stg_localbike__order_items')
-              field: order_id
+              arguments:
+                to: ref('stg_localbike__order_items')
+                field: order_id
       - name: customer_id
+      - name: order_status
       - name: order_status_label
       - name: order_date
+      - name: order_year
       - name: required_date
       - name: shipped_date
       - name: days_to_ship_order
@@ -120,8 +131,9 @@ models:
           - not_null
           - relationships:
               name: product_id_foreign_key_in_stg_localbike__order_items
-              to: ref('stg_localbike__order_items')
-              field: product_id
+              arguments:
+                to: ref('stg_localbike__order_items')
+                field: product_id
       - name: product_name
       - name: brand_id
       - name: category_id
@@ -139,8 +151,9 @@ models:
           - not_null
           - relationships:
               name: staff_id_foreign_key_in_stg_localbike__orders
-              to: ref('stg_localbike__orders')
-              field: staff_id
+              arguments:
+                to: ref('stg_localbike__orders')
+                field: staff_id
       - name: staff_first_name
       - name: staff_last_name
       - name: staff_email
@@ -160,13 +173,15 @@ models:
           - unique
           - not_null
           - relationships:
-              name: store_id_foreign_key_in_stg_localbike__stores 
-              to: ref('stg_localbike__stores')
-              field: store_id
+              name: store_id_foreign_key_in_stg_localbike__stores
+              arguments:
+                to: ref('stg_localbike__stores')
+                field: store_id
           - relationships:
               name: product_id_foreign_key_in_stg_localbike__products 
-              to: ref('stg_localbike__products')
-              field: product_id
+              arguments:
+                to: ref('stg_localbike__products')
+                field: product_id
       - name: stocks_quantity 
 
 

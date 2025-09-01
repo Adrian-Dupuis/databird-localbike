@@ -1,5 +1,10 @@
 select
     s.staff_id,
+    s.staff_first_name,
+    s.staff_last_name,
+    s.staff_email,
+    s.staff_phone,
+    s.staff_active,
     s.manager_id,
     s.manager_first_name,
     s.manager_last_name,

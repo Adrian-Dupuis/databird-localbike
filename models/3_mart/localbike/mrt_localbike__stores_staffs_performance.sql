@@ -1,6 +1,11 @@
 
 select
     staff_id,
+    staff_first_name,
+    staff_last_name,
+    staff_email,
+    staff_phone,
+    staff_active,
     manager_id,
     manager_first_name,
     manager_last_name,
@@ -14,6 +19,11 @@ select
 from  {{ ref('int_localbike__stores_staffs_performance') }}
 GROUP BY 
     staff_id,
+    staff_first_name,
+    staff_last_name,
+    staff_email,
+    staff_phone,
+    staff_active,
     manager_id,
     manager_first_name,
     manager_last_name,

@@ -11,10 +11,6 @@ models:
             - not_null
       - name: first_order_date
         description: "Calculated column, MIN order_date for each customer."
-        tests:
-          - relationships:
-              name: 
-              to: 
       - name: last_order_date
         description: "Calculated column, MAX order_date for each customer."
       - name: number_of_orders
@@ -30,6 +26,7 @@ models:
       - name: order_id
       - name: order_status_label
       - name: order_date
+      - name: order_year
       - name: shipped_date
       - name: days_to_ship_order
       - name: product_id
@@ -51,6 +48,9 @@ models:
       - name: gross_sales_amount
       - name: net_sales_amount
       - name: discount_amount
+      - name: days_from_latest_order
+      - name: shipping_delay
+      - name: avg_shipping_delay
 
   - name: mrt_localbike__products_performance
     description: Mart model for products performance

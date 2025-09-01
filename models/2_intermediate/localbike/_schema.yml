@@ -6,6 +6,7 @@ models:
       customers, and stores.
     columns:
       - name: order_id
+      - name: order_status
       - name: order_status_label
       - name: order_date
       - name: shipped_date
@@ -58,6 +59,11 @@ models:
     description: Intermediate model joining staffs, orders, order items, and stores.
     columns:
       - name: staff_id
+      - name: staff_first_name
+      - name: staff_last_name
+      - name: staff_email
+      - name: staff_phone
+      - name: staff_active
       - name: manager_id
       - name: manager_first_name
       - name: manager_last_name
