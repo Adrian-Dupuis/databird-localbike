@@ -5,12 +5,12 @@ select
   c.category_name,
   p.model_year,
   oi.quantity,
+  oi.gross_sales_amount,
   oi.net_sales_amount,
   oi.discount,
-  oi.order_id,
-  s.stocks_quantity
+  oi.order_id
 from  {{ ref('stg_localbike__order_items') }} as oi
 inner join {{ ref('stg_localbike__products') }} p ON oi.product_id = p.product_id
 inner join {{ ref('stg_localbike__brands') }} b ON p.brand_id = b.brand_id
 inner join {{ ref('stg_localbike__categories') }} c ON p.category_id = c.category_id
-inner join {{ ref('stg_localbike__stocks') }} s ON oi.product_id = s.product_id
+

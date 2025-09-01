@@ -29,11 +29,6 @@ select
     gross_sales_amount,
     net_sales_amount, 
     discount_amount,
-    TIMESTAMP_DIFF(
-        (SELECT MAX(order_date) FROM {{ ref('int_localbike__orders') }}),
-        order_date,
-        DAY
-    ) AS days_from_latest_order, 
     CASE
         WHEN shipped_date IS NOT NULL 
         THEN DATE_DIFF(shipped_date, order_date, DAY)
