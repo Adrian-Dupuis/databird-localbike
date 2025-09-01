@@ -23,11 +23,15 @@ models:
       - name: store_state
       - name: store_zip_code
       - name: quantity
+        description: "Number of units ordered"
       - name: list_price
       - name: discount
+        description: "Discount applied to the product. Used to calculate net price."
       - name: net_price
       - name: gross_sales_amount
+        description: "Total revenue before discounts. Useful for analyzing promotional impact."
       - name: net_sales_amount
+        description: "After discount sales amount, representing the actual amount earned from sales"
       - name: discount_amount
       - name: shipping_delay
         description: "delay between the order_date and the shipping_date. Validated via customer test 'assert_shipping_delay_is_positive_mrt_localbike__orders'"
@@ -43,13 +47,19 @@ models:
       - name: category_name
       - name: model_year
       - name: total_quantity_sold
+        description: "Quantity sold per product_id"
       - name: total_gross_sales_amount
+        description: "Total sales value before discounts. Useful for analyzing promotional impact."
       - name: total_net_sales_amount
+        description: "After discount sales value, representing the actual amount earned from sales"
       - name: average_discount
       - name: number_of_orders
       - name: net_sales_per_order
-        description : "Average net revenue generated per order for each product. This metric helps evaluate product profitability regardless of sales volume or release date."
- 
+        description : "Average net revenue generated per order for each product. This metric helps evaluate product profitability regardless of sales volume or release date."    
+        tests:
+            - dbt_utils.expression_is_true:
+                expression: '>= 0'
+
   - name: mrt_localbike__stores_performance
     description: Mart model for stores performance
     columns:
@@ -72,7 +82,10 @@ models:
       - name: customer_state
       - name: customer_zip_code
       - name: total_gross_store_amount
+        description: "Total sales value before discounts. Useful for analyzing promotional impact."
       - name: total_net_store_amount
-      - name: total_disocunt_store_amount
+        description: "After discount sales value, representing the actual amount earned from sales"
+      - name: total_discount_store_amount
+        description: "Sum of all discounts"
       - name: sales_contribution_per_staff_ratio
         description : "Represents the proportion of net sales attributed to a staff member relative to the total net sales of their store. This metric helps compare staff performance fairly across stores with varying sales volumes."
