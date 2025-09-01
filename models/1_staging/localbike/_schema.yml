@@ -14,6 +14,11 @@ models:
               to: ref('stg_localbike__products')
               field: brand_id
       - name: brand_name
+        description: "Brand name of the bikes."
+        tests:
+          - accepted_values:
+              name: accepted_values_brand_name
+              values: ['Electra', 'Haro', 'Heller', 'Pure Cycles', 'Ritchey', 'Strider', 'Sun Bicycles', 'Surly', 'Trek']
 
 
   - name: stg_localbike__categories
@@ -75,6 +80,10 @@ models:
       - name: quantity
       - name: list_price
       - name: discount
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+            min_value: 0
+            max_value: 1
       - name: net_price
       - name: gross_sales_amount
       - name: net_sales_amount
