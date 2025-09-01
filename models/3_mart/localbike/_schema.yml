@@ -1,0 +1,94 @@
+version: 2
+
+ SELECT
+    MIN(order_date) AS first_order_date,
+    MAX(order_date) AS last_order_date,
+    COUNT(order_id) AS number_of_orders,
+    ROUND(SUM(total_net_amount_spent),2) AS total_sales_amount,
+    ROUND(SUM(total_net_amount_spent) / COUNT(order_id), 2) AS average_order_value
+  FROM {{ ref('int_localbike__customers') }}
+  GROUP BY customer_id
+
+models:
+  - name: mrt_localbike__customers
+    description: "This model contains information about ... ."
+    columns:
+      - name: customer_id
+        description: "Primary key, unique identifier for each customer ."
+        tests:
+            - unique
+            - not_null
+      - name: first_order_date
+        description: "Calculated column, MIN order_date for each customer."
+        tests:
+          - relationships:
+              name: 
+              to: 
+      - name: last_order_date
+        description: "Calculated column, MAX order_date for each customer."
+      - name: number_of_orders
+        description: "Calculated column, COUNT of order_id for each customer."
+      - name: total_sales_amount
+        description: "Calculated column, SUM of total_sales_amount for customer."
+      - name: average_order_value
+        description: "Calculated column, SUM of total_net_amount_spent for each customer divided by COUNT of order_id for each customer"
+
+models:
+  - name: mrt_localbike__orders
+    description: "This model contains information about ... ."
+    columns:
+      - name: ...
+        description: "Primary key, unique identifier for ... ."
+        tests:
+            - unique
+            - not_null
+      - name: ...
+        description: "Foreign key, linking ... to ... ."
+        tests:
+          - relationships:
+              name: 
+              to: 
+      - name: 
+      - name: 
+      - name: 
+      - name: 
+
+models:
+  - name: mrt_localbike__products_performance
+    description: "This model contains information about ... ."
+    columns:
+      - name: ...
+        description: "Primary key, unique identifier for ... ."
+        tests:
+            - unique
+            - not_null
+      - name: ...
+        description: "Foreign key, linking ... to ... ."
+        tests:
+          - relationships:
+              name: 
+              to: 
+      - name: 
+      - name: 
+      - name: 
+      - name: 
+
+models:
+  - name: mrt_localbike__stores_staffs_performance
+    description: "This model contains information about ... ."
+    columns:
+      - name: ...
+        description: "Primary key, unique identifier for ... ."
+        tests:
+            - unique
+            - not_null
+      - name: ...
+        description: "Foreign key, linking ... to ... ."
+        tests:
+          - relationships:
+              name: 
+              to: 
+      - name: 
+      - name: 
+      - name: 
+      - name: 
