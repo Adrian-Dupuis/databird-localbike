@@ -6,13 +6,21 @@ models:
     description: Mart model for orders
     columns:
       - name: order_id
+        tests:
+            - not_null
       - name: order_status_label
       - name: order_date
+        tests:
+              - not_null
       - name: order_year
       - name: shipped_date
       - name: product_id
+        tests:
+            - not_null
       - name: product_name
       - name: brand_id
+        tests:
+              - not_null
       - name: brand_name
       - name: model_year
       - name: category_name
@@ -24,10 +32,24 @@ models:
       - name: store_zip_code
       - name: quantity
         description: "Number of units ordered"
+        tests:
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
       - name: list_price
+        description: "gross price of a product"
+        tests:
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
       - name: discount
         description: "Discount applied to the product. Used to calculate net price."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              name: test_discount_btw_0_and_1
+              arguments:
+                min_value: 0
+                max_value: 1
       - name: net_price
+        description: "price after discount of a product"
       - name: gross_sales_amount
         description: "Total revenue before discounts. Useful for analyzing promotional impact."
       - name: net_sales_amount
@@ -42,6 +64,9 @@ models:
     description: Mart model for products performance
     columns:
       - name: product_id
+        tests:
+            - unique
+            - not_null
       - name: product_name
       - name: brand_name
       - name: category_name
@@ -54,6 +79,9 @@ models:
         description: "After discount sales value, representing the actual amount earned from sales"
       - name: average_discount
       - name: number_of_orders
+        tests:
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
       - name: net_sales_per_order
         description : "Average net revenue generated per order for each product. This metric helps evaluate product profitability regardless of sales volume or release date."    
         tests:
@@ -64,16 +92,22 @@ models:
     description: Mart model for stores performance
     columns:
       - name: staff_id
+        tests:
+              - not_null
       - name: manager_id
       - name: manager_first_name
       - name: manager_last_name
       - name: store_id
+        tests:
+              - not_null
       - name: store_name
       - name: store_state
       - name: store_city
       - name: store_zip_code
       - name: order_date
       - name: customer_id
+        tests:
+              - not_null
       - name: customer_first_name
       - name: customer_last_name
       - name: customer_phone
@@ -85,7 +119,13 @@ models:
         description: "Total sales value before discounts. Useful for analyzing promotional impact."
       - name: total_net_store_amount
         description: "After discount sales value, representing the actual amount earned from sales"
+        tests:
+            - dbt_utils.expression_is_true:
+                expression: '>= 0'
       - name: total_discount_store_amount
         description: "Sum of all discounts"
+        tests:
+            - dbt_utils.expression_is_true:
+                expression: '>= 0'
       - name: sales_contribution_per_staff_ratio
         description : "Represents the proportion of net sales attributed to a staff member relative to the total net sales of their store. This metric helps compare staff performance fairly across stores with varying sales volumes."
