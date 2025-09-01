@@ -1,24 +1,6 @@
 version: 2
 
 models:
-  - name: mrt_localbike__customers
-    description: "This model contains information about ... ."
-    columns:
-      - name: customer_id
-        description: "Primary key, unique identifier for each customer ."
-        tests:
-            - unique
-            - not_null
-      - name: first_order_date
-        description: "Calculated column, MIN order_date for each customer."
-      - name: last_order_date
-        description: "Calculated column, MAX order_date for each customer."
-      - name: number_of_orders
-        description: "Calculated column, COUNT of order_id for each customer."
-      - name: total_sales_amount
-        description: "Calculated column, SUM of total_sales_amount for customer."
-      - name: average_order_value
-        description: "Calculated column, SUM of total_net_amount_spent for each customer divided by COUNT of order_id for each customer"
 
   - name: mrt_localbike__orders
     description: Mart model for orders
@@ -28,7 +10,6 @@ models:
       - name: order_date
       - name: order_year
       - name: shipped_date
-      - name: days_to_ship_order
       - name: product_id
       - name: product_name
       - name: brand_id
@@ -48,9 +29,10 @@ models:
       - name: gross_sales_amount
       - name: net_sales_amount
       - name: discount_amount
-      - name: days_from_latest_order
       - name: shipping_delay
+        description: "delay between the order_date and the shipping_date. Validated via customer test 'assert_shipping_delay_is_positive_mrt_localbike__orders'"
       - name: avg_shipping_delay
+        description: "Average number of days between order placement and shipment across all shipped orders. This metric excludes orders with zero or missing shipping delays to reflect meaningful delivery performance."
 
   - name: mrt_localbike__products_performance
     description: Mart model for products performance
@@ -61,13 +43,15 @@ models:
       - name: category_name
       - name: model_year
       - name: total_quantity_sold
-      - name: total_sales_amount
+      - name: total_gross_sales_amount
+      - name: total_net_sales_amount
       - name: average_discount
       - name: number_of_orders
-      - name: total_stocks_quantity
-      
-  - name: mrt_localbike__stores_staffs_performance
-    description: Mart model for stores staffs performance
+      - name: net_sales_per_order
+        description : "Average net revenue generated per order for each product. This metric helps evaluate product profitability regardless of sales volume or release date."
+ 
+  - name: mrt_localbike__stores_performance
+    description: Mart model for stores performance
     columns:
       - name: staff_id
       - name: manager_id
@@ -79,4 +63,16 @@ models:
       - name: store_city
       - name: store_zip_code
       - name: order_date
+      - name: customer_id
+      - name: customer_first_name
+      - name: customer_last_name
+      - name: customer_phone
+      - name: customer_email
+      - name: customer_city
+      - name: customer_state
+      - name: customer_zip_code
+      - name: total_gross_store_amount
       - name: total_net_store_amount
+      - name: total_disocunt_store_amount
+      - name: sales_contribution_per_staff_ratio
+        description : "Represents the proportion of net sales attributed to a staff member relative to the total net sales of their store. This metric helps compare staff performance fairly across stores with varying sales volumes."
