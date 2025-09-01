@@ -5,7 +5,7 @@ select
   category_name,
   model_year,
   SUM(quantity) as total_quantity_sold,
-  ROUND(SUM(net_amount_spent),2) AS total_sales_amount,
+  ROUND(SUM(net_sales_amount),2) AS total_sales_amount,
   ROUND(AVG(discount),2) AS average_discount,
   COUNT(DISTINCT order_id) as number_of_orders,
   SUM(stocks_quantity) as total_stocks_quantity

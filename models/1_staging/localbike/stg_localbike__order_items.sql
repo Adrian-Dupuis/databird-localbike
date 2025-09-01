@@ -9,8 +9,8 @@ SELECT
     -- Afficher discount en pourcentage sans décimale
     discount, 
     ROUND(CAST(list_price * (1 - discount) AS FLOAT64),2) AS net_price, 
-    ROUND(CAST(list_price * quantity AS FLOAT64),2) AS amount_spent_before_discount, 
-    ROUND(CAST(list_price * (1 - discount) * quantity AS FLOAT64),2) AS net_amount_spent, 
+    ROUND(CAST(list_price * quantity AS FLOAT64),2) AS gross_sales_amount, 
+    ROUND(CAST(list_price * (1 - discount) * quantity AS FLOAT64),2) AS net_sales_amount, 
     -- Montant de la remise
     ROUND(CAST(list_price * discount AS FLOAT64), 2) AS discount_amount
 

@@ -1,14 +1,5 @@
 version: 2
 
- SELECT
-    MIN(order_date) AS first_order_date,
-    MAX(order_date) AS last_order_date,
-    COUNT(order_id) AS number_of_orders,
-    ROUND(SUM(total_net_amount_spent),2) AS total_sales_amount,
-    ROUND(SUM(total_net_amount_spent) / COUNT(order_id), 2) AS average_order_value
-  FROM {{ ref('int_localbike__customers') }}
-  GROUP BY customer_id
-
 models:
   - name: mrt_localbike__customers
     description: "This model contains information about ... ."
@@ -33,62 +24,59 @@ models:
       - name: average_order_value
         description: "Calculated column, SUM of total_net_amount_spent for each customer divided by COUNT of order_id for each customer"
 
-models:
   - name: mrt_localbike__orders
-    description: "This model contains information about ... ."
+    description: Mart model for orders
     columns:
-      - name: ...
-        description: "Primary key, unique identifier for ... ."
-        tests:
-            - unique
-            - not_null
-      - name: ...
-        description: "Foreign key, linking ... to ... ."
-        tests:
-          - relationships:
-              name: 
-              to: 
-      - name: 
-      - name: 
-      - name: 
-      - name: 
+      - name: order_id
+      - name: order_status_label
+      - name: order_date
+      - name: shipped_date
+      - name: days_to_ship_order
+      - name: product_id
+      - name: product_name
+      - name: brand_id
+      - name: brand_name
+      - name: model_year
+      - name: category_name
+      - name: customer_city
+      - name: customer_state
+      - name: customer_zip_code
+      - name: store_city
+      - name: store_state
+      - name: store_zip_code
+      - name: quantity
+      - name: list_price
+      - name: discount
+      - name: net_price
+      - name: gross_sales_amount
+      - name: net_sales_amount
+      - name: discount_amount
 
-models:
   - name: mrt_localbike__products_performance
-    description: "This model contains information about ... ."
+    description: Mart model for products performance
     columns:
-      - name: ...
-        description: "Primary key, unique identifier for ... ."
-        tests:
-            - unique
-            - not_null
-      - name: ...
-        description: "Foreign key, linking ... to ... ."
-        tests:
-          - relationships:
-              name: 
-              to: 
-      - name: 
-      - name: 
-      - name: 
-      - name: 
-
-models:
+      - name: product_id
+      - name: product_name
+      - name: brand_name
+      - name: category_name
+      - name: model_year
+      - name: total_quantity_sold
+      - name: total_sales_amount
+      - name: average_discount
+      - name: number_of_orders
+      - name: total_stocks_quantity
+      
   - name: mrt_localbike__stores_staffs_performance
-    description: "This model contains information about ... ."
+    description: Mart model for stores staffs performance
     columns:
-      - name: ...
-        description: "Primary key, unique identifier for ... ."
-        tests:
-            - unique
-            - not_null
-      - name: ...
-        description: "Foreign key, linking ... to ... ."
-        tests:
-          - relationships:
-              name: 
-              to: 
-      - name: 
-      - name: 
-      - name: 
-      - name: 
+      - name: staff_id
+      - name: manager_id
+      - name: manager_first_name
+      - name: manager_last_name
+      - name: store_id
+      - name: store_name
+      - name: store_state
+      - name: store_city
+      - name: store_zip_code
+      - name: order_date
+      - name: total_net_store_amount

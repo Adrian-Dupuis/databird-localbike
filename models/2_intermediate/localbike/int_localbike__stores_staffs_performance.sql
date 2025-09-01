@@ -9,7 +9,7 @@ select
     store.store_city,
     store.store_zip_code,
     o.order_date,
-    oi.net_amount_spent
+    oi.net_sales_amount
 from {{ ref('stg_localbike__staffs') }} as s
 inner join {{ ref('stg_localbike__orders') }} o ON s.staff_id = o.staff_id
 inner join {{ ref('stg_localbike__order_items') }} oi ON o.order_id = oi.order_id
