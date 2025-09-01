@@ -1,9 +1,7 @@
 version: 2
 models:
-  - name: int_localbike__orders
-    description:
-      Main table. Intermediate model joining orders, order items, products, brands, categories,
-      customers, and stores.
+  - name: mrt_localbike__orders
+    description: Mart model for orders
     columns:
       - name: order_id
       - name: order_status_label
@@ -30,32 +28,32 @@ models:
       - name: net_sales_amount
       - name: discount_amount
 
-  - name: int_localbike__products_performance
-    description:
-      Intermediate model joining order items with products, brands, categories,
-      and stocks.
+  - name: mrt_localbike__customers
+    description: Mart model for customers
+    columns:
+      - name: customer_id
+      - name: first_order_date
+      - name: last_order_date
+      - name: number_of_orders
+      - name: total_sales_amount
+      - name: average_order_value
+
+  - name: mrt_localbike__products_performance
+    description: Mart model for products performance
     columns:
       - name: product_id
       - name: product_name
       - name: brand_name
       - name: category_name
       - name: model_year
-      - name: quantity
-      - name: net_sales_amount
-      - name: discount
-      - name: order_id
-      - name: stocks_quantity
-
-  - name: int_localbike__customers
-    description: Intermediate model aggregating customer orders and net amount spent.
-    columns:
-      - name: customer_id
-      - name: order_id
-      - name: order_date
-      - name: total_net_amount_spent
+      - name: total_quantity_sold
+      - name: total_sales_amount
+      - name: average_discount
+      - name: number_of_orders
+      - name: total_stocks_quantity
       
-  - name: int_localbike__stores_staffs_performance
-    description: Intermediate model joining staffs, orders, order items, and stores.
+  - name: mrt_localbike__stores_staffs_performance
+    description: Mart model for stores staffs performance
     columns:
       - name: staff_id
       - name: manager_id
@@ -67,4 +65,4 @@ models:
       - name: store_city
       - name: store_zip_code
       - name: order_date
-      - name: net_sales_amount
+      - name: total_net_store_amount

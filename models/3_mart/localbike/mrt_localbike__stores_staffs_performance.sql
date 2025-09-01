@@ -1,3 +1,4 @@
+
 select
     staff_id,
     manager_id,
@@ -9,7 +10,7 @@ select
     store_city,
     store_zip_code,
     order_date,
-    ROUND(SUM(net_amount_spent), 2) AS total_net_store_amount
+    ROUND(SUM(net_sales_amount), 2) AS total_net_store_amount
 from  {{ ref('int_localbike__stores_staffs_performance') }}
 GROUP BY 
     staff_id,
