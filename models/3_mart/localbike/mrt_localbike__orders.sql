@@ -5,7 +5,6 @@ select
     order_date, 
     order_year,
     shipped_date, 
-    days_to_ship_order, 
     product_id, 
     product_name, 
     brand_id, 
