@@ -1,2 +1,36 @@
-select * 
+select     
+    order_id, 
+    order_status_label, 
+    order_date, 
+    shipped_date, 
+    days_to_ship_order, 
+    product_id, 
+    product_name, 
+    brand_id, 
+    brand_name,
+    model_year, 
+    category_name,
+    customer_first_name, 
+    customer_last_name, 
+    customer_email, 
+    customer_phone,
+    customer_city, 
+    customer_state, 
+    customer_zip_code,
+    store_city, 
+    store_state, 
+    store_zip_code,
+    quantity, 
+    list_price, 
+    discount, 
+    net_price,
+    gross_sales_amount,
+    net_sales_amount, 
+    discount_amount,
+    TIMESTAMP_DIFF(
+        (SELECT MAX(order_date) FROM {{ ref('int_localbike__orders') }}),
+        order_date,
+        DAY
+    ) AS days_from_latest_order
+
 from  {{ ref('int_localbike__orders') }}

@@ -66,7 +66,7 @@ models:
           - relationships:
               name: order_id_foreign_key_in_stg_localbike__orders
               to: ref('stg_localbike__orders')
-              field: order_id
+              field: cast(order_id as string)
           - relationships:
               name: product_id_foreign_key_in_stg_localbike__products
               to: ref('stg_localbike__products')
@@ -76,8 +76,8 @@ models:
       - name: list_price
       - name: discount
       - name: net_price
-      - name: amount_spent_before_discount
-      - name: net_amount_spend
+      - name: gross_sales_amount
+      - name: net_sales_amount
       - name: discuont_amount
 
   - name: stg_localbike__orders

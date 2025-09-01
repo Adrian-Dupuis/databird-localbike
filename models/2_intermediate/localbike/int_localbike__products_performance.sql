@@ -5,7 +5,7 @@ select
   c.category_name,
   p.model_year,
   oi.quantity,
-  oi.net_amount_spent,
+  oi.net_sales_amount,
   oi.discount,
   oi.order_id,
   s.stocks_quantity

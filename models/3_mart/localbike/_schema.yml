@@ -24,8 +24,8 @@ models:
       - name: list_price
       - name: discount
       - name: net_price
-      - name: amount_spent_before_discount
-      - name: net_amount_spent
+      - name: gross_sales_amount
+      - name: net_sales_amount
       - name: discount_amount
 
   - name: mrt_localbike__customers

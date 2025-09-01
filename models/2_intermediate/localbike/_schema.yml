@@ -26,8 +26,8 @@ models:
       - name: list_price
       - name: discount
       - name: net_price
-      - name: amount_spent_before_discount
-      - name: net_amount_spent
+      - name: gross_sales_amount
+      - name: net_sales_amount
       - name: discount_amount
 
   - name: int_localbike__products_performance
@@ -41,7 +41,7 @@ models:
       - name: category_name
       - name: model_year
       - name: quantity
-      - name: net_amount_spent
+      - name: net_sales_amount
       - name: discount
       - name: order_id
       - name: stocks_quantity
@@ -67,4 +67,4 @@ models:
       - name: store_city
       - name: store_zip_code
       - name: order_date
-      - name: net_amount_spent
+      - name: net_sales_amount

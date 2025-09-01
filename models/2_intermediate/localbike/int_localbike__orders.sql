@@ -10,6 +10,10 @@ select
     b.brand_name,
     p.model_year, 
     c.category_name,
+    cus.customer_first_name, 
+    cus.customer_last_name, 
+    cus.customer_email, 
+    cus.customer_phone,
     cus.customer_city, 
     cus.customer_state, 
     cus.customer_zip_code,
@@ -20,8 +24,8 @@ select
     oi.list_price, 
     oi.discount, 
     oi.net_price,
-    oi.amount_spent_before_discount,
-    oi.net_amount_spent, 
+    oi.gross_sales_amount,
+    oi.net_sales_amount, 
     oi.discount_amount
 FROM {{ ref('stg_localbike__orders') }} as o
 INNER JOIN {{ ref('stg_localbike__order_items') }} as oi on o.order_id = oi.order_id 

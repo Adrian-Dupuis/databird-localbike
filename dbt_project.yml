@@ -35,10 +35,11 @@ clean-targets:         # directories to be removed by `dbt clean`
 # continue to be built as views. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 
+
 models:
   localbike_project:
-    # Applies to all files under models/example/
-    example:
-      3_mart: 
-          +schema: dbt_lt_mrt_localbike
-          +materialized: table
+    3_mart:
+      localbike:
+        +schema: mrt_localbike
+        +materialized: table
+

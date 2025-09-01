@@ -22,3 +22,4 @@ SELECT
     staff_id
 FROM
     {{ source('localbike', 'orders') }}
+WHERE EXTRACT(YEAR FROM TIMESTAMP(order_date, 'Europe/Paris')) > 2015
